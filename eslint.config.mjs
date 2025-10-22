@@ -22,13 +22,7 @@ const jsConfig = [
 ];
 
 // --- Next.js Config ---
-const nextConfig = [
-  plugins.react,
-  plugins.reactHooks,
-  plugins.reactA11y,
-  plugins.next,
-  ...configs.next.recommended,
-];
+const nextConfig = [plugins.react, plugins.reactHooks, plugins.reactA11y, plugins.next, ...configs.next.recommended];
 
 // --- Import Order Config ---
 const importOrderConfig = [
@@ -39,12 +33,7 @@ const importOrderConfig = [
       "import/order": [
         "error",
         {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            ["parent", "sibling", "index"],
-          ],
+          groups: ["builtin", "external", "internal", ["parent", "sibling", "index"]],
           "newlines-between": "always",
           alphabetize: { order: "asc", caseInsensitive: true },
         },
@@ -81,12 +70,13 @@ const tailwindConfig = [
       "better-tailwindcss/enforce-shorthand-classes": "warn",
       "better-tailwindcss/no-duplicate-classes": "error",
       "better-tailwindcss/no-unnecessary-whitespace": "error",
-      "better-tailwindcss/no-unregistered-classes": "warn",
+      "better-tailwindcss/no-unregistered-classes": "none",
       "better-tailwindcss/no-conflicting-classes": "error",
     },
     settings: {
       tailwindcss: {
         config: "tailwind.config.js",
+        entryPoint: "app/globals.css",
         callees: ["clsx", "classnames"],
       },
     },
@@ -115,13 +105,6 @@ export default [
   ...prettierConfig,
   ...importOrderConfig,
   {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "dist/**",
-      "next-env.d.ts",
-    ],
+    ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "dist/**", "next-env.d.ts"],
   },
 ];
