@@ -15,6 +15,16 @@ const jsConfig = [
   {
     name: "js/config",
     ...js.configs.recommended,
+    settings: {
+      "import/resolver": {
+        typescript: {
+          project: "./tsconfig.json",
+        },
+        node: {
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
+        },
+      },
+    },
   },
   plugins.stylistic,
   plugins.importX,
@@ -22,7 +32,18 @@ const jsConfig = [
 ];
 
 // --- Next.js Config ---
-const nextConfig = [plugins.react, plugins.reactHooks, plugins.reactA11y, plugins.next, ...configs.next.recommended];
+const nextConfig = [
+  plugins.react,
+  plugins.reactHooks,
+  plugins.reactA11y,
+  plugins.next,
+  ...configs.next.recommended,
+  {
+    rules: {
+      "react/require-default-props": "off",
+    },
+  },
+];
 
 // --- Import Order Config ---
 const importOrderConfig = [
@@ -67,11 +88,12 @@ const tailwindConfig = [
       "better-tailwindcss/enforce-consistent-class-order": "error",
       "better-tailwindcss/enforce-consistent-variable-syntax": "warn",
       "better-tailwindcss/enforce-consistent-important-position": "warn",
-      "better-tailwindcss/enforce-shorthand-classes": "warn",
+      // "better-tailwindcss/enforce-shorthand-classes": "warn",
       "better-tailwindcss/no-duplicate-classes": "error",
       "better-tailwindcss/no-unnecessary-whitespace": "error",
-      "better-tailwindcss/no-unregistered-classes": "none",
-      "better-tailwindcss/no-conflicting-classes": "error",
+      // "better-tailwindcss/no-unregistered-classes": "off",
+      "better-tailwindcss/no-conflicting-classes": "off",
+      "better-tailwindcss/suggest-canonical-classes": "off",
     },
     settings: {
       tailwindcss: {
@@ -90,7 +112,7 @@ const prettierConfig = [
     plugins: { prettier: prettierPlugin },
     rules: {
       ...prettierConfigRules,
-      "prettier/prettier": "error",
+      "prettier/prettier": "off",
     },
   },
 ];
