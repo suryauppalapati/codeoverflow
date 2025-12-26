@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import ThemeProvider from "@/context/theme";
-import Navbar from "@/components/ui/navigation/navbar";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,7 +27,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} ${spaceGrotesk.variable} antialiased`}>
         <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange attribute="class">
-          <Navbar />
           {children}
         </ThemeProvider>
       </body>
