@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
+
+import { auth } from "@/auth";
 import ThemeProvider from "@/context/theme";
+
 import "./globals.css";
 
 const inter = Inter({
@@ -18,18 +22,24 @@ export const metadata: Metadata = {
   description: "A modern space for developers to ask questions, share insights, and build better software together.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const RootLayout = async ({ children }: { children: Readonly<React.ReactNode> }) => {
+  const session = await auth();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${spaceGrotesk.variable} antialiased`}>
-        <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange attribute="class">
-          {children}
-        </ThemeProvider>
-      </body>
+      <SessionProvider session={session}>
+        <body className={`
+          ${inter.className}
+          ${spaceGrotesk.variable}
+          antialiased
+        `}>
+          <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange attribute="class">
+            {children}
+          </ThemeProvider>
+        </body>
+      </SessionProvider>
     </html>
   );
-}
+};
+
+export default RootLayout;
